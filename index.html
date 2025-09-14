@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akhil M Mani - XR Developer Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+</head>
+<body>
+  <!-- 3D Background -->
+  <div id="canvas-container"></div>
+  
+  <div class="content">
+    <!-- Header -->
+    <header>
+      <div class="header-particles" id="particles"></div>
+      <div class="header-content">
+        <h1>Akhil M Mani</h1>
+        <h2>Lead Unity Developer | XR Specialist</h2>
+        <p>Creating immersive virtual experiences with 5+ years in Unity development</p>
+      </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+      <div class="container">
+        <ul>
+          <li><a href="#profile">Profile</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <div class="container">
+      <!-- Floating 3D Elements -->
+      <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 5%;"></div>
+      <div class="floating-element" style="width: 150px; height: 150px; top: 60%; right: 5%;"></div>
+      <div class="floating-element" style="width: 80px; height: 80px; bottom: 10%; left: 20%;"></div>
+      
+      <!-- Profile Section -->
+      <section id="profile">
+        <h2>Professional Profile</h2>
+        <div class="profile-section" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-perspective="1000">
+          <div class="profile-image">
+            <img src="https://cdn.glitch.global/c25d3b29-cddd-4019-8dc4-ba3d3ff3770b/akhil.jpeg?v=1717263281628" alt="Akhil M Mani">
+          </div>
+          <div class="profile-content">
+            <p>I aspire for a challenging position in a professional organization where I can enhance my professional skills and strengthen my performance in adding with organization's motto. Myself a self motivated achiever with an ability to plan and execute complex XR projects. With 5+ years of experience in Unity development, I specialize in creating immersive AR/VR experiences across multiple platforms including Quest 2, HoloLens, and mobile devices.</p>
+            
+            <h3>Skills</h3>
+            <div class="skills-container">
+              <div class="skill-item">AR/VR/MR</div>
+              <div class="skill-item">Unity Animations</div>
+              <div class="skill-item">Photon Network</div>
+              <div class="skill-item">Unity Barracuda</div>
+              <div class="skill-item">Moralis</div>
+              <div class="skill-item">Adobe Photoshop</div>
+              <div class="skill-item">Adobe Illustrator</div>
+              <div class="skill-item">Adobe Premiere Pro</div>
+              <div class="skill-item">Insta 360 Pro 2</div>
+              <div class="skill-item">Unity</div>
+              <div class="skill-item">HDRP/URP</div>
+              <div class="skill-item">3D Modeling</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Experience Section -->
+      <section id="experience">
+        <h2>Work Experience</h2>
+        
+        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
+          <h3>Lead Unity Developer</h3>
+          <span class="date">XR Horizon Pvt Ltd | August 2023 - Present</span>
+          
+          <div class="project">
+            <h4>Virtual Bank Walkthrough</h4>
+            <ul>
+              <li>VR walkthrough for Quest 2</li>
+              <li>Animations, lighting, UI design</li>
+              <li>Optimized performance for standalone VR hardware</li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>K Run Runner Game</h4>
+            <ul>
+              <li>PC VR using Pico Neo 3 and Sensegloves haptic gloves</li>
+              <li>HDRP implementation</li>
+              <li>Unity animations</li>
+              <li><a href="#">Play Store Link</a></li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>PBD AR</h4>
+            <ul>
+              <li>Designed model showcasing in 3D and AR view</li>
+              <li>Technical Head for the project</li>
+              <li>Handled AWS, GitHub, project management</li>
+              <li>ARKit, ARCore integration</li>
+              <li><a href="#">Play Store</a> | <a href="#">App Store</a></li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>INARA - World First AI Powered Fashion Show</h4>
+            <ul>
+              <li>Technical head for the event</li>
+              <li>Motion tracking using Unity, Intel RealSense integration</li>
+              <li>Unity Barracuda integration</li>
+              <li>Unity virtual production</li>
+              <li>HDRP</li>
+              <li><a href="https://youtube.com">YouTube Demo</a></li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>Oil Rig Training Module</h4>
+            <ul>
+              <li>Technical head for the project</li>
+              <li>Unity IK animation</li>
+              <li>Client management</li>
+              <li>Unity model optimization</li>
+              <li><a href="https://youtube.com">YouTube Demo</a></li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>Educational VR Projects</h4>
+            <ul>
+              <li>Technical head for the projects</li>
+              <li>GitHub, Unity Meta XR</li>
+              <li>URP</li>
+              <li>Conducting workshops about Unity 3D and AR VR possibilities</li>
+              <li><a href="https://youtube.com">YouTube Demo</a></li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>Mixed Reality Surgery Companion</h4>
+            <ul>
+              <li>Researched and developed MR surgery companion application</li>
+              <li>Developed for Apple Vision Pro, Meta Quest Pro, Quest 3 and HoloLens 2</li>
+              <li>Insta 360 Pro 2 camera 360 capturing and Unity integration</li>
+              <li><a href="https://youtube.com">YouTube Demo</a></li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>Broadcast VR and AR Shows</h4>
+            <ul>
+              <li>Technical coordinator for multiple Broadcast VR and AR shows</li>
+              <li><a href="https://youtube.com">YouTube Demo</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
+          <h3>AR/VR Developer</h3>
+          <span class="date">Fingent Global Solutions | March 2023 - August 2023</span>
+          
+          <div class="project">
+            <h4>Medical VR Training Application</h4>
+            <ul>
+              <li>PC VR using Pico Neo 3 and Sensegloves haptic gloves</li>
+              <li>HDRP</li>
+              <li>Unity animations</li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>Private Metaverse</h4>
+            <ul>
+              <li>VR metaverse for Meta Quest 2</li>
+              <li>URP</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
+          <h3>Junior Unity Engineer</h3>
+          <span class="date">Sinergia Media Labs | April 2022 - March 2023</span>
+          
+          <div class="project">
+            <h4>Digital Twin - Blower</h4>
+            <ul>
+              <li>Platform - HoloLens 2</li>
+              <li>Virtual representation of a physical model</li>
+              <li>Worked with embedded engineers to gather real-time data from IoT devices</li>
+              <li>Mixed Reality Toolkit</li>
+              <li>Real-time controlling of physical equipment</li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>Training Metaverse</h4>
+            <ul>
+              <li>Platforms: HoloLens 2, Oculus Quest 2, Android, iOS</li>
+              <li>Virtual Classrooms</li>
+              <li>Multiplayer using Photon engine, Photon RPC, Photon Voice</li>
+              <li>Mixed Reality Toolkit</li>
+              <li>Oculus XR SDK</li>
+              <li>Animations</li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>AR Gram</h4>
+            <ul>
+              <li>Platforms: Android, iOS</li>
+              <li>Extended reality social platform</li>
+              <li>Moralis SDK, ARKit, ARCore, Firebase</li>
+              <li>XCode</li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>LiDAR Mine (Demo)</h4>
+            <ul>
+              <li>Platform: Windows</li>
+              <li>Digital twin of a Mine</li>
+              <li>Real-time monitoring of mine using LiDAR sensor</li>
+              <li>Graphical representation of LiDAR data (People tracing, people trajectory, point cloud)</li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>AI Avatars</h4>
+            <ul>
+              <li>Text to Speech and Speech to text using Unity Barracuda</li>
+              <li>Interfacing TensorFlow models with Unity</li>
+              <li>Creating avatars that can interact using AI</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
+          <h3>Unity Developer</h3>
+          <span class="date">Daynext Studios | November 2020 - March 2022</span>
+          
+          <div class="project">
+            <h4>Daynext Live</h4>
+            <ul>
+              <li>Virtual office</li>
+              <li>3D avatars</li>
+              <li>Photon multiplayer, Agora Engine, Ready Player Me Realtime characters</li>
+              <li><a href="https://daynextstudios.com/">Daynext Studios</a></li>
+            </ul>
+          </div>
+          
+          <div class="project">
+            <h4>AXYZ Metaverse</h4>
+            <ul>
+              <li>Virtual exhibition</li>
+              <li>3D avatars</li>
+              <li>Photon multiplayer, Agora Engine, Ready Player Me Realtime characters</li>
+              <li><a href="https://axyzmetaverse.com/">AXYZ Metaverse</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Education Section -->
+      <section id="education">
+        <h2>Education</h2>
+        
+        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
+          <h3>BTech - Electrical and Electronics Engineering</h3>
+          <span class="date">Ilahia College of Engineering and Technology, Muvattupuzha | 2013-2017</span>
+        </div>
+        
+        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
+          <h3>Higher Secondary - Computer Science</h3>
+          <span class="date">St Ignatius HSS, Kanjiramattom | 2011-2013</span>
+        </div>
+        
+        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
+          <h3>SSLC</h3>
+          <span class="date">VHSS Irimpanam | 2010-2011</span>
+        </div>
+      </section>
+      
+      <!-- Contact Section -->
+      <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-info">
+          <div class="contact-card" data-tilt data-tilt-max="5" data-tilt-speed="400">
+            <h3>Get In Touch</h3>
+            <p>Email: akhilmmani2011@gmail.com</p>
+            <p>Phone: +91 9895173106</p>
+            <p>Address: Muringeliparambil(h), Chithrapuzha, Irimpanam P.O, Tripunithura</p>
+          </div>
+          <div class="contact-card" data-tilt data-tilt-max="5" data-tilt-speed="400">
+            <h3>Social Media</h3>
+            <p>Instagram: <a href="https://instagram.com/akhilmmani">@akhilmmani</a></p>
+            <p>Portfolio: <a href="https://akhilmmani.glitch.me/">akhilmmani.glitch.me</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Akhil M Mani. All rights reserved.</p>
+        <p>Website created with ❤️</p>
+      </div>
+    </footer>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
