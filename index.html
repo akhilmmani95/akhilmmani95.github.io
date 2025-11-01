@@ -1,319 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akhil M Mani - XR Developer Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akhil M Mani | Senior XR & AI Engineer</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* Custom styles for the futuristic look */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark GitHub background */
+            color: #c9d1d9; /* Light gray text */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        
+        .futuristic-font {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1em;
+        }
+
+        /* Styling the canvas to be the background */
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Behind all content */
+            pointer-events: none; /* Ignore mouse events for interaction */
+            opacity: 0.3; /* Subtle background opacity */
+        }
+        
+        /* Ensure content is layered above the canvas */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            /* Add padding only to prevent header overlap, no extra padding needed for HUD */
+            padding-top: 100px; 
+        }
+
+        /* Neon blue accent color */
+        .neon-text {
+            color: #00ffff; /* Cyan */
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+        }
+        
+        .neon-border {
+            border-color: #00ffff;
+            box-shadow: 0 0 5px #00ffff;
+        }
+        
+        /* Project Card Hover Effect - System Highlight */
+        .project-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            border-color: #00ffff;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Engine Logo styles */
+        .engine-logo {
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-  <!-- 3D Background -->
-  <div id="canvas-container"></div>
-  
-  <div class="content">
-    <!-- Header -->
-    <header>
-      <div class="header-particles" id="particles"></div>
-      <div class="header-content">
-        <h1>Akhil M Mani</h1>
-        <h2>Lead Unity Developer | XR Specialist</h2>
-        <p>Creating immersive virtual experiences with 5+ years in Unity development</p>
-      </div>
-    </header>
-    
-    <!-- Navigation -->
-    <nav>
-      <div class="container">
-        <ul>
-          <li><a href="#profile">Profile</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-    
-    <div class="container">
-      <!-- Floating 3D Elements -->
-      <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 5%;"></div>
-      <div class="floating-element" style="width: 150px; height: 150px; top: 60%; right: 5%;"></div>
-      <div class="floating-element" style="width: 80px; height: 80px; bottom: 10%; left: 20%;"></div>
-      
-      <!-- Profile Section -->
-      <section id="profile">
-        <h2>Professional Profile</h2>
-        <div class="profile-section" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-perspective="1000">
-          <div class="profile-image">
-            <img src="https://cdn.glitch.global/c25d3b29-cddd-4019-8dc4-ba3d3ff3770b/akhil.jpeg?v=1717263281628" alt="Akhil M Mani">
-          </div>
-          <div class="profile-content">
-            <p>I aspire for a challenging position in a professional organization where I can enhance my professional skills and strengthen my performance in adding with organization's motto. Myself a self motivated achiever with an ability to plan and execute complex XR projects. With 5+ years of experience in Unity development, I specialize in creating immersive AR/VR experiences across multiple platforms including Quest 2, HoloLens, and mobile devices.</p>
+
+    <!-- Three.js Background Container -->
+    <div id="three-container"></div>
+
+    <!-- Main Content Layer (All UI Elements) -->
+    <div class="content-layer min-h-screen">
+        
+        <!-- Header / Navigation (Consolidated Style) -->
+        <header class="bg-gray-900 bg-opacity-90 backdrop-blur-md fixed top-0 left-0 w-full z-50 shadow-2xl border-b border-cyan-800/50">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <div class="text-3xl font-bold futuristic-font tracking-widest neon-text">
+                        AKHIL M MANI
+                    </div>
+                    <span class="hidden sm:inline-block text-xs text-gray-400 border-l border-gray-600 pl-4">
+                        Senior XR & AI Engineer
+                    </span>
+                </div>
+                <div class="flex space-x-6 text-sm futuristic-font">
+                    <a href="#projects" class="hover:neon-text transition duration-200">/PROJECTS</a>
+                    <a href="#skills" class="hover:neon-text transition duration-200">/SKILLS</a>
+                    <a href="#contact" class="hover:neon-text transition duration-200">/CONTACT</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- 1. Hero Section (Digital Command) -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-40 text-center relative overflow-hidden">
+            <h1 class="text-5xl sm:text-7xl font-extrabold futuristic-font mb-4 leading-tight">
+                <span class="text-gray-200">BUILDING</span> 
+                <span class="neon-text block sm:inline">REAL-TIME 3D</span>
+            </h1>
+            <p class="text-xl sm:text-2xl mb-12 font-light text-gray-400 max-w-4xl mx-auto">
+                5+ years of expertise in **AR, VR, and MR platforms**, specializing in industrial IoT, AI integration, and complex enterprise simulations.
+            </p>
+            <a href="#projects" class="inline-flex items-center justify-center px-10 py-4 border-2 futuristic-font border-neon-border text-lg font-medium rounded-lg text-white bg-transparent hover:bg-cyan-700/30 transition duration-300 transform hover:scale-105 shadow-lg neon-border">
+                EXPLORE PROJECTS &rarr;
+            </a>
             
-            <h3>Skills</h3>
-            <div class="skills-container">
-              <div class="skill-item">AR/VR/MR</div>
-              <div class="skill-item">Unity Animations</div>
-              <div class="skill-item">Photon Network</div>
-              <div class="skill-item">Unity Barracuda</div>
-              <div class="skill-item">Moralis</div>
-              <div class="skill-item">Adobe Photoshop</div>
-              <div class="skill-item">Adobe Illustrator</div>
-              <div class="skill-item">Adobe Premiere Pro</div>
-              <div class="skill-item">Insta 360 Pro 2</div>
-              <div class="skill-item">Unity</div>
-              <div class="skill-item">HDRP/URP</div>
-              <div class="skill-item">3D Modeling</div>
+        </section>
+
+        <!-- 2. Projects Section (Mission Logs) -->
+        <section id="projects" class="py-20 bg-gray-900/90 border-t border-b border-gray-700/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold futuristic-font mb-12 text-center neon-text">
+                    :: PROJECTS / MISSION LOGS ::
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Engine Logos (Inline SVG) -->
+                    <script>
+                        const unityLogo = `<svg class="engine-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 0L87.5 25V75L50 100L12.5 75V25L50 0Z" fill="#FFFFFF"/><path d="M50 63.8824L65.625 55.8824V39.8824L50 31.8824L34.375 39.8824V55.8824L50 63.8824Z" fill="#FF8800"/><path d="M12.5 25L50 50L87.5 25L50 0L12.5 25ZM50 75L12.5 50V75L50 100L87.5 75V50L50 75Z" fill="#3D3D3D"/><path d="M50 100L12.5 75V25L50 50V100ZM50 50L87.5 25V75L50 100V50Z" fill="#F0F0F0"/></svg>`;
+                        const unrealLogo = `<svg class="engine-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0L0 6V18L12 24L24 18V6L12 0ZM12 4.14L18.86 7.62V16.38L12 19.86L5.14 16.38V7.62L12 4.14ZM12 12L18.86 8.52L12 5.04L5.14 8.52L12 12Z" fill="#FFFFFF"/><path d="M12 12L18.86 8.52L12 5.04L5.14 8.52L12 12Z" fill="#777777"/></svg>`;
+                    </script>
+
+                    <!-- Project Card 1: IOT AR -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            IOT AR (Industrial AR) <span class="text-orange-500" id="logo-1"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Developed a leading industrial AR app for real-time sensor data visualization (temperature, pressure) overlaid onto physical machinery via plane detection. Managed the AWS/MQTT backend and admin dashboard.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Lead Unity Developer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#AR</span>
+                            <span class="bg-purple-700/50 text-white px-2 py-0.5 rounded-full">#IoT</span>
+                            <span class="bg-orange-700/50 text-white px-2 py-0.5 rounded-full">#AWS/MQTT</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#DigitalTwin</span>
+                        </div>
+                        <a href="http://www.iot-ar.com" target="_blank" class="text-cyan-400 hover:underline transition">View Case Study &rarr;</a>
+                    </div>
+                    
+                    <!-- Project Card 2: MR Surgery Companion -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            MR Surgery Companion <span class="text-orange-500" id="logo-2"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Built a cross-platform MR application for surgeons, providing real-time data and visualization during procedures using XR SDKs and secure, low-latency video streaming.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Lead Unity Developer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#MR</span>
+                            <span class="bg-pink-700/50 text-white px-2 py-0.5 rounded-full">#VisionPro</span>
+                            <span class="bg-red-700/50/50 text-white px-2 py-0.5 rounded-full">#HoloLens2</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Healthcare</span>
+                        </div>
+                        <a href="#" target="_blank" class="text-cyan-400 hover:underline transition">View Demo Video (YouTube) &rarr;</a>
+                    </div>
+                    
+                    <!-- Project Card 3: INARA (AI Fashion Show) -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            INARA (AI Fashion Show) <span class="text-orange-500" id="logo-3"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Pioneered a real-time AI avatar system using Unity Barracuda to interpret Intel RealSense body tracking data, driving virtual models for the world's first AI-powered fashion show.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Lead Unity Developer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#AI/ML</span>
+                            <span class="bg-green-700/50 text-white px-2 py-0.5 rounded-full">#AvatarSystem</span>
+                            <span class="bg-orange-700/50 text-white px-2 py-0.5 rounded-full">#Barracuda</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#RealSense</span>
+                        </div>
+                        <a href="#" target="_blank" class="text-cyan-400 hover:underline transition">View Demo Video (YouTube) &rarr;</a>
+                    </div>
+                    
+                    <!-- Project Card 4: Medical VR Training -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            Medical VR Training <span class="text-orange-500" id="logo-4"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Developed a high-fidelity surgical simulation using HDRP for realism, integrating haptic feedback gloves (SenseGloves) for realistic procedural guidance and feel.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** AR VR Developer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#VR</span>
+                            <span class="bg-pink-700/50 text-white px-2 py-0.5 rounded-full">#Haptics</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#HDRP</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Simulation</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 hover:underline transition">Explore Details &rarr;</a>
+                    </div>
+
+                    <!-- Project Card 5: Training Metaverse -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            Training Metaverse <span class="text-orange-500" id="logo-5"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Created a cross-platform (Hololens 2, Quest 2) multiplayer virtual classroom system, implementing Photon Engine for VOIP, RPCs, and state synchronization.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Junior Unity Engineer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#Multiplayer</span>
+                            <span class="bg-green-700/50 text-white px-2 py-0.5 rounded-full">#MRTK</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Education</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 hover:underline transition">Explore Details &rarr;</a>
+                    </div>
+                    
+                    <!-- Project Card 6: LIDAR Mine Digital Twin -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            LIDAR Mine Digital Twin <span class="text-orange-500" id="logo-6"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Developed a digital twin of a mine for real-time monitoring and safety, visualizing LiDAR sensor data (point clouds, people tracing) on a Windows platform.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Junior Unity Engineer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#DigitalTwin</span>
+                            <span class="bg-purple-700/50 text-white px-2 py-0.5 rounded-full">#LiDAR</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#RealTime</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Industrial</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 hover:underline transition">View Demo &rarr;</a>
+                    </div>
+
+                    <!-- Project Card 7: Digital Twin - Blower -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            Digital Twin - Blower <span class="text-orange-500" id="logo-7"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Created a virtual representation of physical blower equipment, integrating data from embedded engineers to provide real-time remote control and monitoring via MRTK on HoloLens 2.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Junior Unity Engineer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#HoloLens2</span>
+                            <span class="bg-purple-700/50 text-white px-2 py-0.5 rounded-full">#DigitalTwin</span>
+                            <span class="bg-orange-700/50 text-white px-2 py-0.5 rounded-full">#MRTK</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#IoT Control</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 hover:underline transition">View POC &rarr;</a>
+                    </div>
+
+                    <!-- Project Card 8: Virtual Tryon POC -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            Virtual Tryon POC <span class="text-orange-500" id="logo-8"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Developed proof-of-concept virtual tryon applications for footwear and jewelry, focusing on realistic rendering, scaling, and camera integration for AR-driven retail experiences.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Senior Engineer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#AR</span>
+                            <span class="bg-pink-700/50 text-white px-2 py-0.5 rounded-full">#RetailTech</span>
+                            <span class="bg-red-700/50/50 text-white px-2 py-0.5 rounded-full">#ARFoundation</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Rendering</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 hover:underline transition">View Demo &rarr;</a>
+                    </div>
+                    
+                    <!-- Project Card 9: Daynext Live (Virtual Office) -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            Daynext Live (Virtual Office) <span class="text-orange-500" id="logo-9"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Developed a virtual office platform featuring 3D avatars, implementing Photon Multiplayer and Agora Engine for real-time voice and character synchronization (Ready Player Me integration).</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** Unity Developer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-cyan-700/50 text-white px-2 py-0.5 rounded-full">#Multiplayer</span>
+                            <span class="bg-green-700/50 text-white px-2 py-0.5 rounded-full">#Photon</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Avatar</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#VirtualWorld</span>
+                        </div>
+                        <a href="https://daynextstudios.com/" target="_blank" class="text-cyan-400 hover:underline transition">View Website &rarr;</a>
+                    </div>
+                    
+                    <!-- Project Card 10: Private Metaverse (Unreal Placeholder) -->
+                    <div class="project-card bg-gray-800 p-6 rounded-xl border border-gray-700/80 cursor-pointer">
+                        <h3 class="text-2xl font-bold mb-2 futuristic-font flex items-center">
+                            Private Metaverse (VR) <span class="text-white" id="logo-10"></span>
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-2">**Summary:** Created a secure VR collaboration space for enterprise clients on Quest 2, implementing robust avatar systems and user permission layers for private virtual meetings.</p>
+                        <p class="text-sm text-gray-300 mb-4">**Role:** AR VR Developer</p>
+                        <div class="flex flex-wrap gap-2 text-xs mb-4">
+                            <span class="bg-yellow-700/50 text-white px-2 py-0.5 rounded-full">#Enterprise VR</span>
+                            <span class="bg-green-700/50 text-white px-2 py-0.5 rounded-full">#Security</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Quest2</span>
+                            <span class="bg-gray-700/50 text-white px-2 py-0.5 rounded-full">#Collaboration</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 hover:underline transition">Explore Details &rarr;</a>
+                    </div>
+
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- Experience Section -->
-      <section id="experience">
-        <h2>Work Experience</h2>
-        
-        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
-          <h3>Lead Unity Developer</h3>
-          <span class="date">XR Horizon Pvt Ltd | August 2023 - Present</span>
-          
-          <div class="project">
-            <h4>Virtual Bank Walkthrough</h4>
-            <ul>
-              <li>VR walkthrough for Quest 2</li>
-              <li>Animations, lighting, UI design</li>
-              <li>Optimized performance for standalone VR hardware</li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>K Run Runner Game</h4>
-            <ul>
-              <li>PC VR using Pico Neo 3 and Sensegloves haptic gloves</li>
-              <li>HDRP implementation</li>
-              <li>Unity animations</li>
-              <li><a href="#">Play Store Link</a></li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>PBD AR</h4>
-            <ul>
-              <li>Designed model showcasing in 3D and AR view</li>
-              <li>Technical Head for the project</li>
-              <li>Handled AWS, GitHub, project management</li>
-              <li>ARKit, ARCore integration</li>
-              <li><a href="#">Play Store</a> | <a href="#">App Store</a></li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>INARA - World First AI Powered Fashion Show</h4>
-            <ul>
-              <li>Technical head for the event</li>
-              <li>Motion tracking using Unity, Intel RealSense integration</li>
-              <li>Unity Barracuda integration</li>
-              <li>Unity virtual production</li>
-              <li>HDRP</li>
-              <li><a href="https://youtube.com">YouTube Demo</a></li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>Oil Rig Training Module</h4>
-            <ul>
-              <li>Technical head for the project</li>
-              <li>Unity IK animation</li>
-              <li>Client management</li>
-              <li>Unity model optimization</li>
-              <li><a href="https://youtube.com">YouTube Demo</a></li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>Educational VR Projects</h4>
-            <ul>
-              <li>Technical head for the projects</li>
-              <li>GitHub, Unity Meta XR</li>
-              <li>URP</li>
-              <li>Conducting workshops about Unity 3D and AR VR possibilities</li>
-              <li><a href="https://youtube.com">YouTube Demo</a></li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>Mixed Reality Surgery Companion</h4>
-            <ul>
-              <li>Researched and developed MR surgery companion application</li>
-              <li>Developed for Apple Vision Pro, Meta Quest Pro, Quest 3 and HoloLens 2</li>
-              <li>Insta 360 Pro 2 camera 360 capturing and Unity integration</li>
-              <li><a href="https://youtube.com">YouTube Demo</a></li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>Broadcast VR and AR Shows</h4>
-            <ul>
-              <li>Technical coordinator for multiple Broadcast VR and AR shows</li>
-              <li><a href="https://youtube.com">YouTube Demo</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
-          <h3>AR/VR Developer</h3>
-          <span class="date">Fingent Global Solutions | March 2023 - August 2023</span>
-          
-          <div class="project">
-            <h4>Medical VR Training Application</h4>
-            <ul>
-              <li>PC VR using Pico Neo 3 and Sensegloves haptic gloves</li>
-              <li>HDRP</li>
-              <li>Unity animations</li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>Private Metaverse</h4>
-            <ul>
-              <li>VR metaverse for Meta Quest 2</li>
-              <li>URP</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
-          <h3>Junior Unity Engineer</h3>
-          <span class="date">Sinergia Media Labs | April 2022 - March 2023</span>
-          
-          <div class="project">
-            <h4>Digital Twin - Blower</h4>
-            <ul>
-              <li>Platform - HoloLens 2</li>
-              <li>Virtual representation of a physical model</li>
-              <li>Worked with embedded engineers to gather real-time data from IoT devices</li>
-              <li>Mixed Reality Toolkit</li>
-              <li>Real-time controlling of physical equipment</li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>Training Metaverse</h4>
-            <ul>
-              <li>Platforms: HoloLens 2, Oculus Quest 2, Android, iOS</li>
-              <li>Virtual Classrooms</li>
-              <li>Multiplayer using Photon engine, Photon RPC, Photon Voice</li>
-              <li>Mixed Reality Toolkit</li>
-              <li>Oculus XR SDK</li>
-              <li>Animations</li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>AR Gram</h4>
-            <ul>
-              <li>Platforms: Android, iOS</li>
-              <li>Extended reality social platform</li>
-              <li>Moralis SDK, ARKit, ARCore, Firebase</li>
-              <li>XCode</li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>LiDAR Mine (Demo)</h4>
-            <ul>
-              <li>Platform: Windows</li>
-              <li>Digital twin of a Mine</li>
-              <li>Real-time monitoring of mine using LiDAR sensor</li>
-              <li>Graphical representation of LiDAR data (People tracing, people trajectory, point cloud)</li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>AI Avatars</h4>
-            <ul>
-              <li>Text to Speech and Speech to text using Unity Barracuda</li>
-              <li>Interfacing TensorFlow models with Unity</li>
-              <li>Creating avatars that can interact using AI</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
-          <h3>Unity Developer</h3>
-          <span class="date">Daynext Studios | November 2020 - March 2022</span>
-          
-          <div class="project">
-            <h4>Daynext Live</h4>
-            <ul>
-              <li>Virtual office</li>
-              <li>3D avatars</li>
-              <li>Photon multiplayer, Agora Engine, Ready Player Me Realtime characters</li>
-              <li><a href="https://daynextstudios.com/">Daynext Studios</a></li>
-            </ul>
-          </div>
-          
-          <div class="project">
-            <h4>AXYZ Metaverse</h4>
-            <ul>
-              <li>Virtual exhibition</li>
-              <li>3D avatars</li>
-              <li>Photon multiplayer, Agora Engine, Ready Player Me Realtime characters</li>
-              <li><a href="https://axyzmetaverse.com/">AXYZ Metaverse</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      
-      <!-- Education Section -->
-      <section id="education">
-        <h2>Education</h2>
-        
-        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
-          <h3>BTech - Electrical and Electronics Engineering</h3>
-          <span class="date">Ilahia College of Engineering and Technology, Muvattupuzha | 2013-2017</span>
-        </div>
-        
-        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
-          <h3>Higher Secondary - Computer Science</h3>
-          <span class="date">St Ignatius HSS, Kanjiramattom | 2011-2013</span>
-        </div>
-        
-        <div class="experience-item" data-tilt data-tilt-max="3" data-tilt-speed="300">
-          <h3>SSLC</h3>
-          <span class="date">VHSS Irimpanam | 2010-2011</span>
-        </div>
-      </section>
-      
-      <!-- Contact Section -->
-      <section id="contact">
-        <h2>Contact Me</h2>
-        <div class="contact-info">
-          <div class="contact-card" data-tilt data-tilt-max="5" data-tilt-speed="400">
-            <h3>Get In Touch</h3>
-            <p>Email: akhilmmani2011@gmail.com</p>
-            <p>Phone: +91 9895173106</p>
-            <p>Address: Muringeliparambil(h), Chithrapuzha, Irimpanam P.O, Tripunithura</p>
-          </div>
-          <div class="contact-card" data-tilt data-tilt-max="5" data-tilt-speed="400">
-            <h3>Social Media</h3>
-            <p>Instagram: <a href="https://instagram.com/akhilmmani">@akhilmmani</a></p>
-            <p>Portfolio: <a href="https://akhilmmani.glitch.me/">akhilmmani.glitch.me</a></p>
-          </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- 3. Skills Section (Technical Matrix) -->
+        <section id="skills" class="py-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold futuristic-font mb-12 text-center neon-text">
+                    :: SKILLS / TECH MATRIX ::
+                </h2>
+
+                <div class="space-y-8">
+                    <!-- Category: Unity/XR Core -->
+                    <div class="p-6 rounded-xl border-l-4 border-cyan-500 bg-gray-800/50">
+                        <h3 class="text-xl font-semibold futuristic-font mb-4 text-cyan-400">XR & Core Development</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-cyan-900/50 rounded-md text-sm">Unity 3D</span>
+                            <span class="px-3 py-1 bg-cyan-900/50 rounded-md text-sm">C#</span>
+                            <span class="px-3 py-1 bg-cyan-900/50 rounded-md text-sm">XR Interaction Toolkit</span>
+                            <span class="px-3 py-1 bg-cyan-900/50 rounded-md text-sm">MRTK</span>
+                            <span class="px-3 py-1 bg-cyan-900/50 rounded-md text-sm">AR Foundation</span>
+                            <span class="px-3 py-1 bg-cyan-900/50 rounded-md text-sm">HDRP / URP</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Category: Platforms & Devices -->
+                    <div class="p-6 rounded-xl border-l-4 border-pink-500 bg-gray-800/50">
+                        <h3 class="text-xl font-semibold futuristic-font mb-4 text-pink-400">Platforms & Devices</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-pink-900/50 rounded-md text-sm">Apple Vision Pro</span>
+                            <span class="px-3 py-1 bg-pink-900/50 rounded-md text-sm">Meta Quest</span>
+                            <span class="px-3 py-1 bg-pink-900/50 rounded-md text-sm">HoloLens</span>
+                            <span class="px-3 py-1 bg-pink-900/50 rounded-md text-sm">Pico Neo</span>
+                            <span class="px-3 py-1 bg-pink-900/50 rounded-md text-sm">Android / iOS</span>
+                        </div>
+                    </div>
+
+                    <!-- Category: AI/ML & Backend -->
+                    <div class="p-6 rounded-xl border-l-4 border-green-500 bg-gray-800/50">
+                        <h3 class="text-xl font-semibold futuristic-font mb-4 text-green-400">AI/ML, Backend & Tools</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-green-900/50 rounded-md text-sm">Unity Barracuda</span>
+                            <span class="px-3 py-1 bg-green-900/50 rounded-md text-sm">TensorFlow Lite</span>
+                            <span class="px-3 py-1 bg-green-900/50 rounded-md text-sm">Photon Engine</span>
+                            <span class="px-3 py-1 bg-green-900/50 rounded-md text-sm">AWS / Firebase</span>
+                            <span class="px-3 py-1 bg-green-900/50 rounded-md text-sm">Moralis / IoT (MQTT)</span>
+                            <span class="px-3 py-1 bg-green-900/50 rounded-md text-sm">Intel RealSense</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Contact Section (System Comms) -->
+        <section id="contact" class="py-20 bg-gray-900/90 border-t border-gray-700/50">
+            <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold futuristic-font mb-6 neon-text">
+                    :: COMMENCE CONNECTION ::
+                </h2>
+                <p class="mb-8 text-lg text-gray-400">
+                    Ready to build the next generation of immersive experiences? Get in touch.
+                </p>
+                <a href="mailto:akhilmmani2011@gmail.com" class="inline-flex items-center justify-center px-10 py-4 border-2 futuristic-font border-neon-border text-lg font-medium rounded-lg text-white bg-transparent hover:bg-cyan-700/30 transition duration-300 transform hover:scale-105 shadow-lg neon-border">
+                    <span class="mr-2">EMAIL:</span> akhilmmani2011@gmail.com
+                </a>
+                <div class="mt-4 text-sm text-gray-500">
+                    <a href="https://linkedin.com/in/akhilmmani" target="_blank" class="hover:neon-text transition">LinkedIn: @akhilmmani</a> | <a href="tel:+919895173106" class="hover:neon-text transition">Phone: +91 98951 73106</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-8 bg-gray-900 border-t border-gray-700/50 mt-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-500 futuristic-font">
+                // DATA_PORTFOLIO_V5.0 // AKHIL M MANI // XR COMMAND CENTER //
+            </div>
+        </footer>
+
     </div>
-    
-    <footer>
-      <div class="container">
-        <p>&copy; 2023 Akhil M Mani. All rights reserved.</p>
-        <p>Website created with ❤️</p>
-      </div>
-    </footer>
-  </div>
-  
-  <script src="script.js"></script>
+
+    <!-- JavaScript for Three.js Background (Static Animation) -->
+    <script>
+        window.onload = function() {
+            // Inject Logos into the project titles
+            document.getElementById('logo-1').innerHTML = unityLogo;
+            document.getElementById('logo-2').innerHTML = unityLogo;
+            document.getElementById('logo-3').innerHTML = unityLogo;
+            document.getElementById('logo-4').innerHTML = unityLogo;
+            document.getElementById('logo-5').innerHTML = unityLogo;
+            document.getElementById('logo-6').innerHTML = unityLogo;
+            document.getElementById('logo-7').innerHTML = unityLogo;
+            document.getElementById('logo-8').innerHTML = unityLogo;
+            document.getElementById('logo-9').innerHTML = unityLogo;
+            document.getElementById('logo-10').innerHTML = unrealLogo; // Placeholder for non-Unity project
+
+            // --- Three.js Setup: Creating the Static Particle Field ---
+
+            const container = document.getElementById('three-container');
+            let scene, camera, renderer, points, geometry, material;
+            
+            // Configuration for the static field
+            const pointCount = 10000;
+            const fieldSize = 400; // Larger field size for subtle background
+            
+            // Initialization
+            function init() {
+                scene = new THREE.Scene();
+                // We use a lower FOV (60) for a less distorted view
+                camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.z = 200; // Place camera away from the center
+                
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.appendChild(renderer.domElement);
+                
+                // Create the Data Points (BufferGeometry)
+                geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array(pointCount * 3);
+                const colors = new Float32Array(pointCount * 3);
+                
+                const color = new THREE.Color();
+                const pointColor = new THREE.Color(0x00ffff); // Neon Cyan
+
+                for (let i = 0; i < pointCount; i++) {
+                    // Position points randomly in a large cube
+                    positions[i * 3] = (Math.random() - 0.5) * fieldSize; // X
+                    positions[i * 3 + 1] = (Math.random() - 0.5) * fieldSize; // Y
+                    positions[i * 3 + 2] = (Math.random() - 0.5) * fieldSize; // Z
+                    
+                    // Assign color
+                    color.copy(pointColor).multiplyScalar(Math.random() * 0.5 + 0.5); 
+                    colors[i * 3] = color.r;
+                    colors[i * 3 + 1] = color.g;
+                    colors[i * 3 + 2] = color.b;
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                material = new THREE.PointsMaterial({
+                    size: 0.5,
+                    vertexColors: true,
+                    blending: THREE.AdditiveBlending,
+                    transparent: true,
+                    opacity: 0.7
+                });
+
+                points = new THREE.Points(geometry, material);
+                scene.add(points);
+
+                window.addEventListener('resize', onWindowResize, false);
+                
+                animate(); // Start the animation loop
+            }
+
+            // Handle window resize for responsiveness
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            // Animation Loop (Simple Rotation)
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Simple, gentle rotation of the whole particle field (no scroll dependency)
+                points.rotation.y += 0.0005;
+                points.rotation.x += 0.0002;
+
+                renderer.render(scene, camera);
+            }
+
+            init();
+        };
+    </script>
 </body>
 </html>
